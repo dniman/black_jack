@@ -9,6 +9,17 @@ class Card
     @suit = suit
   end
 
+  def nominal
+    return 10 if rank > 10 && rank < 14
+    return 11 if rank == 14
+
+    rank
+  end
+
+  def ace?
+    rank == 14
+  end
+
   def to_s
     case rank
     when 11 then "J#{suit}"

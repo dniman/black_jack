@@ -6,7 +6,7 @@ require './card'
 # Deck for BlackJack
 class Deck
   extend Forwardable
-  def_delegators :@cards, :<<, :length
+  def_delegators :@cards, :<<, :length, :shift
 
   CARD_RANKS = 2..14
   CARD_SUITS = %W[\u{2661} \u{2662} \u{2664} \u{2667}].freeze

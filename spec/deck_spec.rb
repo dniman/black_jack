@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require './deck'
 
 describe Deck do
   describe '#shuffle' do
@@ -12,9 +13,7 @@ describe Deck do
     end
   end
 
-  describe 'should respond to #<<' do
-    it { is_expected.to respond_to(:<<) }
-  end
+  it { is_expected.to respond_to(:<<) }
 
   describe '#length' do
     it 'should respond to #length' do
@@ -25,4 +24,6 @@ describe Deck do
       expect(subject.length).to eq(52)
     end
   end
+
+  it { is_expected.to respond_to(:shift) }
 end
