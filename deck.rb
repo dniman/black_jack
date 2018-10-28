@@ -27,4 +27,13 @@ class Deck
   def shuffle
     Deck.new(cards.shuffle)
   end
+
+  def shuffle!
+    self.cards = cards.shuffle!
+    self
+  end
+
+  protected
+
+  attr_writer :cards
 end

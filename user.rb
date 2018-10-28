@@ -4,12 +4,11 @@ require './player'
 
 # BlackJack user
 class User
-  include Player 
+  include Player
 
-  attr_accessor :bank, :score, :name
+  attr_accessor :name
 
-  def initialize
-    @bank = 100
-    @score = 0
+  def info(visible = true)
+    super
   end
 end
