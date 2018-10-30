@@ -2,7 +2,7 @@
 
 # BlackJack player
 #
-module Player
+class Player
   attr_accessor :bank, :move
   attr_writer :score
 
@@ -41,13 +41,13 @@ module Player
   end
 
   def win?(player)
-    (score > player.score && score <= 20) ||
-      (score < player.score && player.score > 20)
+    (score > player.score && score <= 21) ||
+      (score < player.score && player.score > 21)
   end
 
   def lose?(player)
-    (score > 20 && player.score <= 21) ||
-      (score < player.score && player.score <= 20)
+    (score > 21 && player.score <= 21) ||
+      (score < player.score && player.score <= 21)
   end
 
   def tied_score?(player)

@@ -3,9 +3,7 @@
 require './player'
 
 # BlackJack user
-class User
-  include Player
-
+class User < Player
   attr_accessor :name
 
   def info(visible = true)
