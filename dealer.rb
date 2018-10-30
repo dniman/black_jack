@@ -6,7 +6,6 @@ require './deck'
 # Diler
 #
 class Dealer < Player
-
   def deal(gamer, qty = 1)
     qty.times { gamer.cards << deck.shift }
   end

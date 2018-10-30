@@ -40,20 +40,6 @@ class Player
     self.move = false
   end
 
-  def win?(player)
-    (score > player.score && score <= 21) ||
-      (score < player.score && player.score > 21)
-  end
-
-  def lose?(player)
-    (score > 21 && player.score <= 21) ||
-      (score < player.score && player.score <= 21)
-  end
-
-  def tied_score?(player)
-    score == player.score
-  end
-
   def info(visible = false)
     "\e[4m#Player\e[0m: #{name_format} - #{bank_format}\t\
         Cards: #{cards_format(visible)}\t\

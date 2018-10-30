@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require './game'
+require './terminal_interface'
 
 system('clear')
 puts File.read('bj.txt')
 
 game = Game.new
-game.start
+ui = TerminalInterface.new(game)
+ui.start_game

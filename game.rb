@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require './players'
+require './user'
+require './dealer'
 
 # BlackJack
 class Game
-  include Players
-
   attr_accessor :bank
   attr_reader :stake
 
@@ -14,28 +13,20 @@ class Game
     @stake = stake
   end
 
-  def start
-    ask_name
-    loop do
-      reset_values!
-      game_logic
-      break unless repeat?
-    end
+  def user
+    @user ||= User.new
   end
 
-  def game_logic
-    deal_cards
-    user.move = true
-    while any_move?
-      puts show_info
-      player_actions
-    end
-    calc_results
+  def dealer
+    @dealer ||= Dealer.new
   end
 
-  def ask_name
-    print 'Enter your name: '
-    user.name = gets.chomp
+  def current_player
+    players.detect(&:move)
+  end
+
+  def players
+    [user, dealer]
   end
 
   def reset_values!
@@ -53,32 +44,25 @@ class Game
     end
   end
 
-  def show_info
-    clear_screen
-    dealer_info = any_move? ? dealer.info : dealer.info(true)
-    ["Game bank: #{bank}$", user.info, dealer_info, '']
-  end
-
-  def player_actions
-    user_actions if current_player.is_a?(User)
-    dealer_actions if current_player.is_a?(Dealer)
-  end
-
-  def calc_results
-    puts show_info
-    congrat_with_win if user.win?(dealer)
-    congrat_with_lose if user.lose?(dealer)
-    congrat_with_tie if user.tied_score?(dealer)
-  end
-
-  def repeat?
-    print 'Play again? [yes/no]: '
-    return true if gets.chomp =~ /^[Yy]$/
+  def any_move?
+    return true if current_player
 
     false
   end
 
-  def clear_screen
-    system('clear')
+  # rubocop:disable Metrics/AbcSize
+  def user_win?
+    (user.score > dealer.score && user.score <= 21) ||
+      (user.score < dealer.score && dealer.score > 21)
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def user_lose?
+    (user.score > 21 && dealer.score <= 21) ||
+      (user.score < dealer.score && dealer.score <= 21)
+  end
+
+  def tied_score?
+    user.score == dealer.score
   end
 end
