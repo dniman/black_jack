@@ -1,12 +1,24 @@
 # frozen_string_literal: true
 
+require './validation'
+
 # Card from the deck
 class Card
+  include Validation
   attr_reader :rank, :suit
+
+  SUITS = %W[\u{2661} \u{2662} \u{2664} \u{2667}].freeze
+
+  validate :rank, :presence
+  validate :rank, :type, Integer
+  validate :rank, :range, 1..14
+  validate :suit, :presence
+  validate :suit, :presence_in_array, SUITS
 
   def initialize(rank, suit)
     @rank = rank
     @suit = suit
+    validate!
   end
 
   def nominal
